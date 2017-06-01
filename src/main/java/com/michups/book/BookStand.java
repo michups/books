@@ -28,12 +28,10 @@ public class BookStand {
     }
 
     public void addBookShalve(int index, BookShelve bookShelve) {
-
         bookShelves[index] = bookShelve;
     }
 
     public BookShelve getBookShelves(int index) {
-
         return bookShelves[index];
     }
 }
