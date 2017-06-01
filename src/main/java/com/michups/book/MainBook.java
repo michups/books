@@ -8,17 +8,47 @@ import java.util.Scanner;
 public class MainBook {
     public static void main(String[] args) {
 
+        Book[] books = new Book[10];
         Scanner inputScanner = new Scanner(System.in);
+        boolean run = true;
+        while(run) {
 
-        System.out.println("Give me book title");
-        String title = inputScanner.next();
-        System.out.println("Give me book author");
-        String author = inputScanner.next();
-        System.out.println("Give me book year");
-        Integer year = inputScanner.nextInt();
+            System.out.println();
+            System.out.println("Give me command: add, show, quit");
+            String command = inputScanner.next();
+            switch ( command){
+                case "add":{
+                    System.out.println("Give me book index");
+                    Integer index = inputScanner.nextInt();
 
-        Book book = new Book(title, author, year);
+                    System.out.println("Give me book title");
+                    String title = inputScanner.next();
+                    System.out.println("Give me book author");
+                    String author = inputScanner.next();
+                    System.out.println("Give me book year");
+                    Integer year = inputScanner.nextInt();
 
-        book.print();
+                    Book book = new Book(title, author, year);
+                    books[index] = book;
+                    break;
+                }
+                case "show":{
+
+                    break;
+                }
+                case "quit":{
+                    run = false;
+                    break;
+                }
+
+            }
+
+        }
+
+
+
     }
+
+
+
 }
