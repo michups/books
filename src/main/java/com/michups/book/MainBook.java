@@ -10,13 +10,15 @@ public class MainBook {
     public static void main(String[] args) {
 
         int BOOKSHALVE_SIZE = 10;
-        int NUMBER_OF_BOOKSHALVE = 10;
+        int BOOKSTAND_SIZE = 10;
 
-        BookShelve[] bookShelves = new BookShelve[NUMBER_OF_BOOKSHALVE];
-        for (int i = 0; i <BOOKSHALVE_SIZE  ; i++) {
-            bookShelves[i]= new BookShelve(BOOKSHALVE_SIZE);
+
+        BookStand bookStand = new BookStand(BOOKSTAND_SIZE);
+        for (int i = 0; i < BOOKSHALVE_SIZE; i++) {
+            bookStand.addBookShalve(i, new BookShelve(BOOKSHALVE_SIZE));
         }
-        //
+
+
 
         Scanner inputScanner = new Scanner(System.in);
         boolean run = true;
@@ -27,6 +29,8 @@ public class MainBook {
             String command = inputScanner.nextLine();
             switch ( command){
                 case "add":{
+                   // System.out.println("Give me bookstand index");
+                  //  Integer indexBookStand = inputScanner.nextInt();
                     System.out.println("Give me bookshelve index");
                     Integer indexBookShalve = inputScanner.nextInt();
                     System.out.println("Give me book index");
@@ -41,25 +45,30 @@ public class MainBook {
 
                     Book book = new Book(title, author, year);
 
-                    bookShelves[indexBookShalve].addBook(indexBook, book);
+                    BookShelve tempBookShalve = bookStand.getBookShelves(indexBookShalve);
+                    tempBookShalve.addBook(indexBook, book);
+                    bookStand.addBookShalve(indexBookShalve, tempBookShalve);
                     break;
                 }
                 case "show":{
+                   // System.out.println("Give me bookstand index");
+                  //  int indexBookStand = inputScanner.nextInt();
                     System.out.println("Give me bookshelve index");
                     int indexBookShalve = inputScanner.nextInt();
                     System.out.println("Give me book index");
                     int indexBook = inputScanner.nextInt();
-                    if ( bookShelves[indexBookShalve].getBook(indexBook) != null) {
-                        bookShelves[indexBookShalve].getBook(indexBook).print();
+
+                    if (bookStand.getBookShelves(indexBookShalve).getBook(indexBook) != null) {
+                        bookStand.getBookShelves(indexBookShalve).getBook(indexBook);
                     }
                     break;
                 }
                 case "show all":{
 //                    System.out.println(Arrays.deepToString(bookShelves));
-                    for (int j = 0; j <bookShelves.length ; j++) {
-                        for (int i = 0; i < bookShelves[j].getBookShelveSize(); i++) {
-                            if ( bookShelves[j].getBook(i) != null) {
-                                bookShelves[j].getBook(i).print();
+                    for (int j = 0; j <bookStand.getBookStandSize() ; j++) {
+                        for (int i = 0; i < bookStand.getBookShelves(j).getBookShelveSize(); i++) {
+                            if ( bookStand.getBookShelves(j).getBook(i)!= null) {
+                                bookStand.getBookShelves(j).getBook(i).print();
                             }
                         }
                     }
