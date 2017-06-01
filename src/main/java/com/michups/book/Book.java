@@ -11,9 +11,9 @@ public class Book {
 
     public void print() {
         System.out.println("--Book--");
-        System.out.println("title= '" + title +"'");
-        System.out.println("author='" + author +"'");
-        System.out.println("yearOfPublish='" + yearOfPublish+"'");
+        System.out.println("Title= '" + title +"'");
+        System.out.println("Author='" + author +"'");
+        System.out.println("Year of publish='" + yearOfPublish+"'");
 
     }
 
