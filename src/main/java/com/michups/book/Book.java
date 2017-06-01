@@ -3,9 +3,12 @@ package com.michups.book;
 /**
  * Created by michups on 01.06.17.
  */
-public class Book {
+public class Book implements java.io.Serializable{
+
     private String title;
+
     private String author;
+
     private int yearOfPublish;
 
 

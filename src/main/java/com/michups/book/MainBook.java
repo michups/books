@@ -1,5 +1,6 @@
 package com.michups.book;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -24,6 +25,16 @@ public class MainBook {
         }
 
 
+        try (
+            FileInputStream fileIn = new FileInputStream("save.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn)){
+            bookStands = (BookStand[]) in.readObject();
+        }catch(IOException i) {
+            i.printStackTrace();
+        }catch(ClassNotFoundException c) {
+            c.printStackTrace();
+        }
+
         Scanner inputScanner = new Scanner(System.in);
         boolean run = true;
         while (run) {
@@ -33,20 +44,25 @@ public class MainBook {
             String command = inputScanner.nextLine();
             switch (command) {
                 case "add": {
+
                      System.out.println("Give me bookstand index");
                       Integer indexBookStand = inputScanner.nextInt();
                       inputScanner.skip("\n");
+
                     System.out.println("Give me bookshelve index");
                     Integer indexBookShalve = inputScanner.nextInt();
                     inputScanner.skip("\n");
+
                     System.out.println("Give me book index");
                     Integer indexBook = inputScanner.nextInt();
                     inputScanner.skip("\n");
 
                     System.out.println("Give me book title");
                     String title = inputScanner.nextLine();
+
                     System.out.println("Give me book author");
                     String author = inputScanner.nextLine();
+
                     System.out.println("Give me book year");
                     int year = inputScanner.nextInt();
                     inputScanner.skip("\n");
@@ -55,7 +71,7 @@ public class MainBook {
 
                     BookShelve tempBookShalve = bookStands[indexBookStand].getBookShelves(indexBookShalve);
                     tempBookShalve.addBook(indexBook, book);
-                    bookStands[indexBookStand].addBookShalve(indexBookShalve, tempBookShalve);
+
                     break;
                 }
                 case "show": {
@@ -69,18 +85,20 @@ public class MainBook {
                     int indexBook = inputScanner.nextInt();
                     inputScanner.skip("\n");
 
-                    if (bookStands[indexBookStand].getBookShelves(indexBookShalve).getBook(indexBook) != null) {
+                    if (bookStands[indexBookStand]!=null && bookStands[indexBookStand].getBookShelves(indexBookShalve)!=null &&
+                            bookStands[indexBookStand].getBookShelves(indexBookShalve).getBook(indexBook) != null) {
                         bookStands[indexBookStand].getBookShelves(indexBookShalve).getBook(indexBook);
                     }
                     break;
                 }
                 case "show all": {
 //                    System.out.println(Arrays.deepToString(bookShelves));
-                    for (int indexBookStand = 0; indexBookStand < ARRAY_OF_BOOKSTAND_SIZE; indexBookStand++) {
+                    for (int indexBookStand = 0; indexBookStand < bookStands.length; indexBookStand++) {
 
                         for (int j = 0; j < bookStands[indexBookStand].getBookStandSize(); j++) {
                             for (int i = 0; i < bookStands[indexBookStand].getBookShelves(j).getBookShelveSize(); i++) {
-                                if (bookStands[indexBookStand].getBookShelves(j).getBook(i) != null) {
+                                if (bookStands[indexBookStand]!=null && bookStands[indexBookStand].getBookShelves(j)!=null &&
+                                        bookStands[indexBookStand].getBookShelves(j).getBook(i) != null) {
                                     bookStands[indexBookStand].getBookShelves(j).getBook(i).print();
                                 }
                             }
@@ -89,6 +107,15 @@ public class MainBook {
                     break;
                 }
                 case "quit": {
+                    try (              FileOutputStream fos = new FileOutputStream("save.ser");
+                        ObjectOutputStream oos = new ObjectOutputStream(fos))
+                    {
+                        oos.writeObject(bookStands);
+                        System.out.println("Serialization complited");
+                    }catch ( IOException e)
+                    {
+                        e.printStackTrace();
+                    }
                     run = false;
                     break;
 
@@ -97,7 +124,6 @@ public class MainBook {
                     System.out.println("Wrong command");
                 }
             }
-
         }
 
 
