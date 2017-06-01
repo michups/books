@@ -9,6 +9,20 @@ public class Book {
     private Integer yearOfPublish;
 
 
+    public void print() {
+        System.out.println("--Book--");
+        System.out.println("title= '" + title +"'");
+        System.out.println("author='" + author +"'");
+        System.out.println("yearOfPublish='" + yearOfPublish+"'");
+
+    }
+
+    public Book(String title, String author, Integer yearOfPublish) {
+        this.title = title;
+        this.author = author;
+        this.yearOfPublish = yearOfPublish;
+    }
+
     public String getTitle() {
         return title;
     }
