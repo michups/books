@@ -8,7 +8,8 @@ import java.util.Scanner;
 public class MainBook {
     public static void main(String[] args) {
 
-        Book[] books = new Book[10];
+        int bookShelveSize = 10;
+        BookShelve bookShelve = new BookShelve(bookShelveSize);
         Scanner inputScanner = new Scanner(System.in);
         boolean run = true;
         while(run) {
@@ -29,19 +30,21 @@ public class MainBook {
                     int year = inputScanner.nextInt();
 
                     Book book = new Book(title, author, year);
-                    books[index] = book;
+                    bookShelve.addBook(index, book);
                     break;
                 }
                 case "show":{
                     System.out.println("Give me book index");
                     int index = inputScanner.nextInt();
-                    books[index].print();
+                    bookShelve.getBook(index).print();
                     break;
                 }
                 case "show all":{
-                    for (Book oneBook:books) {
-                        if (oneBook!=null)
-                        oneBook.print();
+                    for (int i=0; i<bookShelve.getBookShelveSize(); i++) {
+                        if (bookShelve.getBook(i)!=null)
+                        {
+                            bookShelve.getBook(i).print();
+                        }
                     }
 
                     break;
