@@ -26,7 +26,7 @@ public class MainBook {
                     System.out.println("Give me book author");
                     String author = inputScanner.nextLine();
                     System.out.println("Give me book year");
-                    Integer year = inputScanner.nextInt();
+                    int year = inputScanner.nextInt();
 
                     Book book = new Book(title, author, year);
                     books[index] = book;
@@ -34,7 +34,7 @@ public class MainBook {
                 }
                 case "show":{
                     System.out.println("Give me book index");
-                    Integer index = inputScanner.nextInt();
+                    int index = inputScanner.nextInt();
                     books[index].print();
                     break;
                 }

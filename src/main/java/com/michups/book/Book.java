@@ -6,7 +6,7 @@ package com.michups.book;
 public class Book {
     private String title;
     private String author;
-    private Integer yearOfPublish;
+    private int yearOfPublish;
 
 
     public void print() {
@@ -17,7 +17,7 @@ public class Book {
 
     }
 
-    public Book(String title, String author, Integer yearOfPublish) {
+    public Book(String title, String author, int yearOfPublish) {
         this.title = title;
         this.author = author;
         this.yearOfPublish = yearOfPublish;
@@ -39,11 +39,11 @@ public class Book {
         this.author = author;
     }
 
-    public Integer getYearOfPublish() {
+    public int getYearOfPublish() {
         return yearOfPublish;
     }
 
-    public void setYearOfPublish(Integer yearOfPublish) {
+    public void setYearOfPublish(int yearOfPublish) {
         this.yearOfPublish = yearOfPublish;
     }
 
