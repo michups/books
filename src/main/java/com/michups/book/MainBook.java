@@ -26,16 +26,8 @@ public class MainBook {
             }
         }
 
-
-        try (
-            FileInputStream fileIn = new FileInputStream("library_save.lib");
-            ObjectInputStream in = new ObjectInputStream(fileIn)){
-            library = (Library) in.readObject();
-        }catch(IOException i) {
-            i.printStackTrace();
-        }catch(ClassNotFoundException c) {
-            c.printStackTrace();
-        }
+        SavetoFile savetoFile = new SavetoFile();
+        savetoFile.loadFromFile("textSave.lib", library);
 
         Scanner inputScanner = new Scanner(System.in);
         boolean run = true;
@@ -109,15 +101,8 @@ public class MainBook {
                     break;
                 }
                 case "quit": {
-                    try (              FileOutputStream fos = new FileOutputStream("save2.ser");
-                        ObjectOutputStream oos = new ObjectOutputStream(fos))
-                    {
-                        oos.writeObject(library);
-                        System.out.println("Serialization complited");
-                    }catch ( IOException e)
-                    {
-                        e.printStackTrace();
-                    }
+
+                    savetoFile.saveToFile("textSave.lib", library);
                     run = false;
                     break;
 
