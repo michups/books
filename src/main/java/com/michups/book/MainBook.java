@@ -28,7 +28,7 @@ public class MainBook {
 
 
         try (
-            FileInputStream fileIn = new FileInputStream("save2.ser");
+            FileInputStream fileIn = new FileInputStream("library_save.lib");
             ObjectInputStream in = new ObjectInputStream(fileIn)){
             library = (Library) in.readObject();
         }catch(IOException i) {
