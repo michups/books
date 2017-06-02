@@ -12,23 +12,25 @@ public class MainBook {
 
         int BOOKSHALVE_SIZE = 10;
         int BOOKSTAND_SIZE = 10;
-        int ARRAY_OF_BOOKSTAND_SIZE = 10;
+
+        int LIBRARY_SIZE = 10;
 
 
-        BookStand[] bookStands = new BookStand[ARRAY_OF_BOOKSTAND_SIZE];
-        for (int j = 0; j < ARRAY_OF_BOOKSTAND_SIZE; j++) {
+        Library library = new Library(LIBRARY_SIZE);
 
-            bookStands[j] = new BookStand(BOOKSTAND_SIZE);
+        for (int j = 0; j < LIBRARY_SIZE; j++) {
+
+            library.addBookStand(j, new BookStand(BOOKSTAND_SIZE));
             for (int i = 0; i < BOOKSHALVE_SIZE; i++) {
-                bookStands[j].addBookShalve(i, new BookShelve(BOOKSHALVE_SIZE));
+                library.getBookStand(j).addBookShalve(i, new BookShelve(BOOKSHALVE_SIZE));
             }
         }
 
 
         try (
-            FileInputStream fileIn = new FileInputStream("save.ser");
+            FileInputStream fileIn = new FileInputStream("save2.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn)){
-            bookStands = (BookStand[]) in.readObject();
+            library = (Library) in.readObject();
         }catch(IOException i) {
             i.printStackTrace();
         }catch(ClassNotFoundException c) {
@@ -69,7 +71,7 @@ public class MainBook {
 
                     Book book = new Book(title, author, year);
 
-                    BookShelve tempBookShalve = bookStands[indexBookStand].getBookShelves(indexBookShalve);
+                    BookShelve tempBookShalve =  library.getBookStand(indexBookStand).getBookShelves(indexBookShalve);
                     tempBookShalve.addBook(indexBook, book);
 
                     break;
@@ -85,21 +87,21 @@ public class MainBook {
                     int indexBook = inputScanner.nextInt();
                     inputScanner.skip("\n");
 
-                    if (bookStands[indexBookStand]!=null && bookStands[indexBookStand].getBookShelves(indexBookShalve)!=null &&
-                            bookStands[indexBookStand].getBookShelves(indexBookShalve).getBook(indexBook) != null) {
-                        bookStands[indexBookStand].getBookShelves(indexBookShalve).getBook(indexBook);
+                    if (library.getBookStand(indexBookStand)!=null &&library.getBookStand(indexBookStand).getBookShelves(indexBookShalve)!=null &&
+                            library.getBookStand(indexBookStand).getBookShelves(indexBookShalve).getBook(indexBook) != null) {
+                        library.getBookStand(indexBookStand).getBookShelves(indexBookShalve).getBook(indexBook);
                     }
                     break;
                 }
                 case "show all": {
 //                    System.out.println(Arrays.deepToString(bookShelves));
-                    for (int indexBookStand = 0; indexBookStand < bookStands.length; indexBookStand++) {
+                    for (int indexBookStand = 0; indexBookStand <library.getBookStandSize(); indexBookStand++) {
 
-                        for (int j = 0; j < bookStands[indexBookStand].getBookStandSize(); j++) {
-                            for (int i = 0; i < bookStands[indexBookStand].getBookShelves(j).getBookShelveSize(); i++) {
-                                if (bookStands[indexBookStand]!=null && bookStands[indexBookStand].getBookShelves(j)!=null &&
-                                        bookStands[indexBookStand].getBookShelves(j).getBook(i) != null) {
-                                    bookStands[indexBookStand].getBookShelves(j).getBook(i).print();
+                        for (int j = 0; j < library.getBookStand(indexBookStand).getBookStandSize(); j++) {
+                            for (int i = 0; i < library.getBookStand(indexBookStand).getBookShelves(j).getBookShelveSize(); i++) {
+                                if (library.getBookStand(indexBookStand)!=null && library.getBookStand(indexBookStand).getBookShelves(j)!=null &&
+                                        library.getBookStand(indexBookStand).getBookShelves(j).getBook(i) != null) {
+                                    library.getBookStand(indexBookStand).getBookShelves(j).getBook(i).print();
                                 }
                             }
                         }
@@ -107,10 +109,10 @@ public class MainBook {
                     break;
                 }
                 case "quit": {
-                    try (              FileOutputStream fos = new FileOutputStream("save.ser");
+                    try (              FileOutputStream fos = new FileOutputStream("save2.ser");
                         ObjectOutputStream oos = new ObjectOutputStream(fos))
                     {
-                        oos.writeObject(bookStands);
+                        oos.writeObject(library);
                         System.out.println("Serialization complited");
                     }catch ( IOException e)
                     {
