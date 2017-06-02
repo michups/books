@@ -7,7 +7,7 @@ public class Book implements java.io.Serializable{
 
     private String title;
 
-    private String author;
+    private Author author;
 
     private int yearOfPublish;
 
@@ -20,7 +20,7 @@ public class Book implements java.io.Serializable{
 
     }
 
-    public Book(String title, String author, int yearOfPublish) {
+    public Book(String title, Author author, int yearOfPublish) {
         this.title = title;
         this.author = author;
         this.yearOfPublish = yearOfPublish;
@@ -34,11 +34,11 @@ public class Book implements java.io.Serializable{
         this.title = title;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 

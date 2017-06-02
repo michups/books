@@ -54,13 +54,18 @@ public class MainBook {
                     System.out.println("Give me book title");
                     String title = inputScanner.nextLine();
 
-                    System.out.println("Give me book author");
-                    String author = inputScanner.nextLine();
+                    System.out.println("Give me book author name");
+                    String authorName = inputScanner.nextLine();
+                    System.out.println("Give me book author surname");
+                    String authorSurname = inputScanner.nextLine();
+                    System.out.println("Give me book author nickname");
+                    String authorNickname = inputScanner.nextLine();
 
                     System.out.println("Give me book year");
                     int year = inputScanner.nextInt();
                     inputScanner.skip("\n");
 
+                    Author author = new Author(authorName,authorSurname,authorNickname);
                     Book book = new Book(title, author, year);
 
                     BookShelve tempBookShalve =  library.getBookStand(indexBookStand).getBookShelves(indexBookShalve);

@@ -26,10 +26,16 @@ public class SavetoFile {
 
                 String title = reader.readLine();
 
-                String author = reader.readLine();
+
+                String authorName = reader.readLine();
+
+                String authorSurname = reader.readLine();
+
+                String authorNickname =reader.readLine();
 
                 int year = Integer.parseInt(reader.readLine());
 
+                Author author = new Author(authorName,authorSurname,authorNickname);
                 Book book = new Book(title, author, year);
 
                 BookShelve tempBookShalve = inputLibrary.getBookStand(indexBookStand).getBookShelves(indexBookShalve);
@@ -58,7 +64,9 @@ public class SavetoFile {
                             writer.println(j);
                             writer.println(i);
                             writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getTitle());
-                            writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getAuthor());
+                            writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getAuthor().getName());
+                            writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getAuthor().getSurname());
+                            writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getAuthor().getNickName());
                             writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getYearOfPublish());
                         }
                     }
