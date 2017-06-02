@@ -7,7 +7,7 @@ public class Book implements java.io.Serializable{
 
     private String title;
 
-    private Author author;
+    private Author[] authors;
 
     private int yearOfPublish;
 
@@ -15,14 +15,18 @@ public class Book implements java.io.Serializable{
     public void print() {
         System.out.println("--Book--");
         System.out.println("Title= '" + title +"'");
-        System.out.println("Author='" + author +"'");
+        for (Author author:authors  ) {
+            System.out.println("Author='" + author.toString() +"'");
+        }
         System.out.println("Year of publish='" + yearOfPublish+"'");
 
     }
 
-    public Book(String title, Author author, int yearOfPublish) {
+    public Book(String title, Author[] authors, int yearOfPublish) {
+
         this.title = title;
-        this.author = author;
+        this.authors =authors;
+
         this.yearOfPublish = yearOfPublish;
     }
 
@@ -34,12 +38,16 @@ public class Book implements java.io.Serializable{
         this.title = title;
     }
 
-    public Author getAuthor() {
-        return author;
+    public Author getAuthor( int index) {
+        return authors[index];
+    }
+    public int getNumberOfAuthors() {
+        return authors.length;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+
+    public void setAuthor(int index, Author author) {
+        this.authors[index] = author;
     }
 
     public int getYearOfPublish() {

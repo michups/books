@@ -54,19 +54,30 @@ public class MainBook {
                     System.out.println("Give me book title");
                     String title = inputScanner.nextLine();
 
-                    System.out.println("Give me book author name");
-                    String authorName = inputScanner.nextLine();
-                    System.out.println("Give me book author surname");
-                    String authorSurname = inputScanner.nextLine();
-                    System.out.println("Give me book author nickname");
-                    String authorNickname = inputScanner.nextLine();
+                    System.out.println("Give me number of authors");
+                    int authorNumber = inputScanner.nextInt();
+                    inputScanner.skip("\n");
+                    Author[] authors = new Author[authorNumber];
+
+                    for (int i = 0; i < authors.length; i++) {
+
+                        System.out.println("Give me book author name");
+                        String authorName = inputScanner.nextLine();
+                        System.out.println("Give me book author surname");
+                        String authorSurname = inputScanner.nextLine();
+                        System.out.println("Give me book author nickname");
+                        String authorNickname = inputScanner.nextLine();
+
+                        Author author = new Author(authorName,authorSurname,authorNickname);
+                        authors[i] = author;
+
+                    }
 
                     System.out.println("Give me book year");
                     int year = inputScanner.nextInt();
                     inputScanner.skip("\n");
 
-                    Author author = new Author(authorName,authorSurname,authorNickname);
-                    Book book = new Book(title, author, year);
+                    Book book = new Book(title, authors, year);
 
                     BookShelve tempBookShalve =  library.getBookStand(indexBookStand).getBookShelves(indexBookShalve);
                     tempBookShalve.addBook(indexBook, book);

@@ -1,9 +1,11 @@
 package com.michups.book;
 
+import java.io.Serializable;
+
 /**
  * Created by michups on 02.06.17.
  */
-public class Author {
+public class Author implements Serializable{
 
     private String name;
 
@@ -11,6 +13,12 @@ public class Author {
 
     private String nickName;
 
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", nickName='" + nickName + '\''  ;
+    }
 
     public Author(String name, String surname, String nickName) {
         this.name = name;
