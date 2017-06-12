@@ -12,9 +12,8 @@ public class SavetoFile {
         try (
                 FileInputStream fileIn = new FileInputStream(path);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(fileIn))){
-
+            String firstLine= reader.readLine();
             while (true) {
-                String firstLine = reader.readLine();
                 if (firstLine == null){
                     return true;
                 }
@@ -39,12 +38,31 @@ public class SavetoFile {
 
                     authors[j] = new Author(authorName, authorSurname, authorNickname);
                 }
-
                 int year = Integer.parseInt(reader.readLine());
-                Book book = new Book(title, authors, year);
+                Book book;
+                firstLine= reader.readLine();
+                String releaseComicBookDate;
+                String publishingSeries;
+                String magazineDate;
+
+                if (firstLine.equals("ComicBook")){
+                    releaseComicBookDate =  reader.readLine();
+                    publishingSeries =  reader.readLine();
+                    book = new ComicBook(title, authors, year,releaseComicBookDate, publishingSeries);
+                }
+                else if(firstLine.equals("Magazine")){
+                    magazineDate =  reader.readLine();
+                    book = new Magazine(title, authors, year, magazineDate);
+
+                }
+                else{
+                    book = new Book(title, authors, year);
+
+                }
 
                 BookShelve tempBookShalve = inputLibrary.getBookStand(indexBookStand).getBookShelves(indexBookShalve);
                 tempBookShalve.addBook(indexBook, book);
+                firstLine= reader.readLine();
             }
 
         } catch (  IOException i)
@@ -78,6 +96,18 @@ public class SavetoFile {
                                 writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getAuthor(k).getNickName());
                             }
                             writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getYearOfPublish());
+
+                            if(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i)instanceof ComicBook){
+                                writer.println("ComicBook");
+                                writer.println(((ComicBook) lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i)).getDateOfRelease());
+                                writer.println(((ComicBook) lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i)).getPublishingSeries());
+                            }
+
+                            if(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i)instanceof Magazine){
+                                writer.println("Magazine");
+                                writer.println(( (Magazine)lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i)).getDate());
+                            }
+
                         }
                     }
                 }

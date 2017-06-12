@@ -17,4 +17,23 @@ public class Magazine extends Book {
         String months =  (month>=10)?Integer.toString(month%13) :"0"+Integer.toString(month) ;
         this.date =years+"-"+months+"-"+days;
     }
+    public Magazine(String title, Author[] authors, int year, String date) {
+        super(title, authors, year);
+
+        this.date =date;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.println("Date= '" + date +"'");
+    }
 }

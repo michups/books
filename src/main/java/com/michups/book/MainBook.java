@@ -51,6 +51,9 @@ public class MainBook {
                     Integer indexBook = inputScanner.nextInt();
                     inputScanner.skip("\n");
 
+                    System.out.println("Give me book type: b-book, c-comic book, m-magazine");
+                    String booktype = inputScanner.nextLine();
+
                     System.out.println("Give me book title");
                     String title = inputScanner.nextLine();
 
@@ -72,12 +75,43 @@ public class MainBook {
                         authors[i] = author;
 
                     }
-
                     System.out.println("Give me book year");
                     int year = inputScanner.nextInt();
                     inputScanner.skip("\n");
 
-                    Book book = new Book(title, authors, year);
+                    int month;
+                    int magazineday;
+                    String publishingSeries;
+                    Book book;
+                    switch (booktype){
+                        case "c":{
+                            System.out.println("Give me comic book month");
+                            month = inputScanner.nextInt();
+                            inputScanner.skip("\n");
+                            System.out.println("Give name of publishing series");
+                            publishingSeries = inputScanner.nextLine();
+
+                            book = new ComicBook(title, authors, year, month, publishingSeries);
+                            break;
+                        }
+                        case "m":{
+                            System.out.println("Give me magazine month");
+                            month = inputScanner.nextInt();
+                            inputScanner.skip("\n");
+                            System.out.println("Give me magazine day");
+                            magazineday = inputScanner.nextInt();
+                            inputScanner.skip("\n");
+                            book = new Magazine(title, authors, year, month, magazineday);
+                            break;
+                        }
+                        default:{
+                            book = new Book(title, authors, year);
+
+                            break;
+                        }
+
+                    }
+
 
                     BookShelve tempBookShalve =  library.getBookStand(indexBookStand).getBookShelves(indexBookShalve);
                     tempBookShalve.addBook(indexBook, book);
