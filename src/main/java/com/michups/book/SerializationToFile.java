@@ -9,7 +9,7 @@ public class SerializationToFile {
 
     public boolean loadFromFile(String path, Library outLibrary) {
         try (
-                FileInputStream fileIn = new FileInputStream("library_save.lib");
+                FileInputStream fileIn = new FileInputStream(path);
                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
             outLibrary = (Library) in.readObject();
             return true;

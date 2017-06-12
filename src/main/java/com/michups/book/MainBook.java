@@ -54,6 +54,8 @@ public class MainBook {
                     System.out.println("Give me book type: b-book, c-comic book, m-magazine");
                     String booktype = inputScanner.nextLine();
 
+                    Cover bookCover = GetBookCoverFromUser(inputScanner);
+
                     System.out.println("Give me book title");
                     String title = inputScanner.nextLine();
 
@@ -91,7 +93,7 @@ public class MainBook {
                             System.out.println("Give name of publishing series");
                             publishingSeries = inputScanner.nextLine();
 
-                            book = new ComicBook(title, authors, year, month, publishingSeries);
+                            book = new ComicBook(title, authors, year, month, publishingSeries, bookCover);
                             break;
                         }
                         case "m":{
@@ -101,11 +103,11 @@ public class MainBook {
                             System.out.println("Give me magazine day");
                             magazineday = inputScanner.nextInt();
                             inputScanner.skip("\n");
-                            book = new Magazine(title, authors, year, month, magazineday);
+                            book = new Magazine(title, authors, year, month, magazineday, bookCover);
                             break;
                         }
                         default:{
-                            book = new Book(title, authors, year);
+                            book = new Book(title, authors, year, bookCover);
 
                             break;
                         }
@@ -131,7 +133,11 @@ public class MainBook {
 
                     if (library.getBookStand(indexBookStand)!=null &&library.getBookStand(indexBookStand).getBookShelves(indexBookShalve)!=null &&
                             library.getBookStand(indexBookStand).getBookShelves(indexBookShalve).getBook(indexBook) != null) {
-                        library.getBookStand(indexBookStand).getBookShelves(indexBookShalve).getBook(indexBook);
+                        library.getBookStand(indexBookStand).getBookShelves(indexBookShalve).getBook(indexBook).print();
+                    }
+                    else
+                    {
+                        System.out.println("This place is empty");
                     }
                     break;
                 }
@@ -164,6 +170,26 @@ public class MainBook {
         }
 
 
+    }
+
+    public static Cover GetBookCoverFromUser(Scanner inputScanner){
+        while(true) {
+            System.out.println("Give me book cover type: s-soft, h-hard, i-integrated");
+
+            String bookCoverStr = inputScanner.nextLine();
+            switch (bookCoverStr) {
+                case "h":
+                    return Cover.HARD;
+                case "s":
+                    return Cover.SOFT;
+                case "i":
+                    return Cover.INTEGRADED;
+                default:
+                    System.out.println("WRONG COMMAND type of cover");
+                    System.out.println("Give me book cover type: s-soft, h-hard, i-integrated");
+
+            }
+        }
     }
 
 

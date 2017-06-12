@@ -12,16 +12,16 @@ public class ComicBook extends Book{
     private String publishingSeries;
 
 
-    public ComicBook(String title, Author[] authors, int year, int month,String pulishingSeries ) {
-        super(title, authors, year);
+    public ComicBook(String title, Author[] authors, int year, int month,String pulishingSeries, Cover cover) {
+        super(title, authors, year, cover);
         String years =  Integer.toString(year%100);
         String months =  (month>=10)?Integer.toString(month%13) :"0"+Integer.toString(month) ;
         this.dateOfRelease =years+"-"+months;
         this.publishingSeries = pulishingSeries;
     }
 
-    public ComicBook(String title, Author[] authors, int year, String dateOfRelease ,String pulishingSeries ) {
-        super(title, authors, year);
+    public ComicBook(String title, Author[] authors, int year, String dateOfRelease ,String pulishingSeries,Cover cover ) {
+        super(title, authors, year, cover);
         this.dateOfRelease =dateOfRelease;
         this.publishingSeries = pulishingSeries;
     }

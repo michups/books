@@ -24,6 +24,7 @@ public class SavetoFile {
                 int indexBook = Integer.parseInt(reader.readLine());
 
                 String title = reader.readLine();
+                Cover cover = Cover.valueOf(reader.readLine());
 
                 int numberOfAuthors= Integer.parseInt(reader.readLine());
                 Author[] authors = new Author[numberOfAuthors];
@@ -48,15 +49,15 @@ public class SavetoFile {
                 if (firstLine.equals("ComicBook")){
                     releaseComicBookDate =  reader.readLine();
                     publishingSeries =  reader.readLine();
-                    book = new ComicBook(title, authors, year,releaseComicBookDate, publishingSeries);
+                    book = new ComicBook(title, authors, year,releaseComicBookDate, publishingSeries, cover);
                 }
                 else if(firstLine.equals("Magazine")){
                     magazineDate =  reader.readLine();
-                    book = new Magazine(title, authors, year, magazineDate);
+                    book = new Magazine(title, authors, year, magazineDate, cover);
 
                 }
                 else{
-                    book = new Book(title, authors, year);
+                    book = new Book(title, authors, year, cover);
 
                 }
 
@@ -87,6 +88,7 @@ public class SavetoFile {
                             writer.println(j);
                             writer.println(i);
                             writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getTitle());
+                            writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getCover());
 
                              writer.println(lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getNumberOfAuthors());
                             for (int k = 0; k < lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i).getNumberOfAuthors(); k++) {

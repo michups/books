@@ -11,8 +11,13 @@ public class Book implements java.io.Serializable{
 
     private int yearOfPublish;
 
+
     private Cover cover;
 
+
+    public Cover getCover() {
+        return cover;
+    }
 
     public void print() {
         System.out.println("--Book--");
@@ -21,11 +26,13 @@ public class Book implements java.io.Serializable{
             System.out.println("Author='" + author.toString() +"'");
         }
         System.out.println("Year of publish='" + yearOfPublish+"'");
+        System.out.println("Cover = "+cover.name());
 
     }
 
-    public Book(String title, Author[] authors, int yearOfPublish) {
+    public Book(String title, Author[] authors, int yearOfPublish, Cover cover) {
 
+        this.cover = cover;
         this.title = title;
         this.authors =authors;
 
