@@ -11,6 +11,8 @@ public class Book implements java.io.Serializable{
 
     private int yearOfPublish;
 
+    private Cover cover;
+
 
     public void print() {
         System.out.println("--Book--");
