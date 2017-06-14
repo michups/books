@@ -60,8 +60,8 @@ public class SavetoFile {
                     book = new Book(title, authors, year, cover);
 
                 }
-
-                BookShelve tempBookShalve = inputLibrary.getBookStand(indexBookStand).getBookShelves(indexBookShalve);
+                BookStand tempBookStand = inputLibrary.getBookStand(indexBookStand);
+                BookShelve tempBookShalve = tempBookStand.getBookShelves(indexBookShalve);
                 tempBookShalve.addBook(indexBook, book);
                 firstLine= reader.readLine();
             }
@@ -78,10 +78,12 @@ public class SavetoFile {
 
         try (FileOutputStream fos = new FileOutputStream(path);
              PrintWriter writer = new PrintWriter(fos)) {
-            for (int indexBookStand = 0; indexBookStand <lib.getBookStandSize(); indexBookStand++) {
+            for (int indexBookStand = 0; indexBookStand <lib.getSize(); indexBookStand++) {
 
-                for (int j = 0; j < lib.getBookStand(indexBookStand).getBookStandSize(); j++) {
-                    for (int i = 0; i < lib.getBookStand(indexBookStand).getBookShelves(j).getBookShelveSize(); i++) {
+                if(lib.getBookStand(indexBookStand)!=null)
+                for (int j = 0; j < lib.getBookStand(indexBookStand).getSize(); j++) {
+                    if(lib.getBookStand(indexBookStand).getBookShelves(j)!=null)
+                        for (int i = 0; i < lib.getBookStand(indexBookStand).getBookShelves(j).getSize(); i++) {
                         if (lib.getBookStand(indexBookStand)!=null && lib.getBookStand(indexBookStand).getBookShelves(j)!=null &&
                                 lib.getBookStand(indexBookStand).getBookShelves(j).getBook(i) != null) {
                             writer.println(indexBookStand);

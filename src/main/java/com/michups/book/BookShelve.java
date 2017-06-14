@@ -11,24 +11,55 @@ public class BookShelve implements java.io.Serializable{
         if (size > 0) {
             this.books = new Book[size];
         } else {
-            this.books = new Book[10];
+            this.books = new Book[1];
         }
     }
-
-
-    public int getBookShelveSize() {
-        return books.length;
+    public BookShelve() {
+            this.books = new Book[1];
     }
 
 
+    private void resize(int index) {
+        Book[] tempBooks = new Book[index+1];
+        for (int i = 0; i < tempBooks.length; i++) {
+            if(i>books.length-1){
+                //tempBooks[i] = new Book();
+            }else if(books[i] !=null){
+                tempBooks[i] = books[i];
+            }
+
+        }
+        books=tempBooks;
+    }
 
     public void addBook(int index, Book book) {
+        if(index<getSize()-1){
 
-        books[index] = book;
+            books[index] = book;
+        }
+        else
+        {
+            resize(index);
+            books[index] = book;
+
+        }
     }
 
     public Book getBook(int index) {
 
-        return books[index];
+        if(index<getSize()-1){
+
+            return books[index];
+        }
+        else
+        {
+            resize(index);
+            return books[index];
+
+        }
+    }
+    public int getSize() {
+
+        return books.length;
     }
 }

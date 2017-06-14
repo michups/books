@@ -10,21 +10,13 @@ import java.util.Scanner;
 public class MainBook {
     public static void main(String[] args) {
 
-        int BOOKSHALVE_SIZE = 10;
-        int BOOKSTAND_SIZE = 10;
+//        int BOOKSHALVE_SIZE = 10;
+//        int BOOKSTAND_SIZE = 10;
+//
+        //int LIBRARY_SIZE = 10;
 
-        int LIBRARY_SIZE = 10;
 
-
-        Library library = new Library(LIBRARY_SIZE);
-
-        for (int j = 0; j < LIBRARY_SIZE; j++) {
-
-            library.addBookStand(j, new BookStand(BOOKSTAND_SIZE));
-            for (int i = 0; i < BOOKSHALVE_SIZE; i++) {
-                library.getBookStand(j).addBookShalve(i, new BookShelve(BOOKSHALVE_SIZE));
-            }
-        }
+        Library library = new Library();
 
         SavetoFile savetoFile = new SavetoFile();
         savetoFile.loadFromFile("textSave.lib", library);
@@ -143,10 +135,13 @@ public class MainBook {
                 }
                 case "show all": {
 //                    System.out.println(Arrays.deepToString(bookShelves));
-                    for (int indexBookStand = 0; indexBookStand <library.getBookStandSize(); indexBookStand++) {
+//                    System.out.println("AAAAAAAAAAAA");
+                    for (int indexBookStand = 0; indexBookStand <library.getSize(); indexBookStand++) {
 
-                        for (int j = 0; j < library.getBookStand(indexBookStand).getBookStandSize(); j++) {
-                            for (int i = 0; i < library.getBookStand(indexBookStand).getBookShelves(j).getBookShelveSize(); i++) {
+                        if(library.getBookStand(indexBookStand)!=null)
+                        for (int j = 0; j < library.getBookStand(indexBookStand).getSize(); j++) {
+                            if(library.getBookStand(indexBookStand).getBookShelves(j)!=null)
+                            for (int i = 0; i < library.getBookStand(indexBookStand).getBookShelves(j).getSize(); i++) {
                                 if (library.getBookStand(indexBookStand)!=null && library.getBookStand(indexBookStand).getBookShelves(j)!=null &&
                                         library.getBookStand(indexBookStand).getBookShelves(j).getBook(i) != null) {
                                     library.getBookStand(indexBookStand).getBookShelves(j).getBook(i).print();
