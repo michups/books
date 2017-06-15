@@ -1,71 +1,64 @@
 package com.michups.book;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by michups on 02.06.17.
  */
 public class Library implements java.io.Serializable {
 
-    private BookStand[] bookStands;
+    private List<BookStand> bookStands;
 
     public Library(int size) {
         if (size > 0) {
-            this.bookStands = new BookStand[size];
+            this.bookStands =new ArrayList<>(size);
         } else {
-            this.bookStands = new BookStand[1];
+            this.bookStands =new ArrayList<>();
         }
     }
 
 
     public Library() {
-            this.bookStands = new BookStand[1];
+            this.bookStands = new ArrayList<>();
     }
 
     private void resize(int index) {
-        BookStand[] tempBookStand = new BookStand[index+1];
-        for (int i = 0; i < tempBookStand.length; i++) {
-            if(i>bookStands.length-1){
-                tempBookStand[i] = new BookStand();
-            }else if(bookStands[i] !=null){
-                tempBookStand[i] = bookStands[i];
-            }
-
+        for (int i = bookStands.size(); i <= index; i++) {
+            bookStands.add(null);
         }
-        bookStands=tempBookStand;
     }
     public int getSize() {
-        return bookStands.length;
+        return bookStands.size();
     }
 
 
     public void addBookStand(int index, BookStand bookStand) {
-        this.bookStands[index] = bookStand;
+
         if(index<getSize()-1){
 
-            bookStands[index] = bookStand;
+            bookStands.set(index,bookStand);
         }
         else
         {
             resize(index);
-            bookStands[index] = bookStand;
+            bookStands.set(index,bookStand);
 
         }
     }
 
     public BookStand getBookStand(int index) {
 
-        if(index<getSize()-1){
-
-            return bookStands[index];
-        }
-        else
-        {
+        if(index>getSize()-1){
             resize(index);
-            if(bookStands[index] == null) {
-                bookStands[index] = new BookStand();
-            }
-            return bookStands[index];
+            addBookStand(index, new BookStand());
+        }else if( bookStands.get(index)==null){
 
+            addBookStand(index, new BookStand());
         }
 
+        return bookStands.get(index);
     }
+
+
 }

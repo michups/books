@@ -1,50 +1,46 @@
 package com.michups.book;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by michups on 01.06.17.
  */
 public class BookStand implements java.io.Serializable{
 
-    private BookShelve[] bookShelves;
+    private List<BookShelve> bookShelves;
 
     public BookStand(int size) {
         if (size > 0) {
-            this.bookShelves = new BookShelve[size];
+            this.bookShelves = new ArrayList<>(size);
         } else {
-            this.bookShelves = new BookShelve[1];
+            this.bookShelves = new ArrayList<>();
         }
     }
     public BookStand() {
-            this.bookShelves = new BookShelve[1];
+            this.bookShelves = new ArrayList<>();
     }
 
 
     private void resize(int index) {
-        BookShelve[] tempBookshelves = new BookShelve[index+1];
-        for (int i = 0; i < tempBookshelves.length; i++) {
-                if(i>bookShelves.length-1){
-                    tempBookshelves[i] = new BookShelve();
-                }else if(bookShelves[i] !=null){
-                    tempBookshelves[i] = bookShelves[i];
-                }
-            }
-
-        bookShelves=tempBookshelves;
+        for (int i = bookShelves.size(); i <= index; i++) {
+            bookShelves.add(null);
+        }
     }
 
     public int getSize(){
-        return bookShelves.length;
+        return bookShelves.size();
     }
 
     public void addBookShalve(int index, BookShelve bookShelve) {
         if(index<getSize()-1){
 
-            bookShelves[index] = bookShelve;
+            bookShelves.set(index,bookShelve);
         }
         else
         {
             resize(index);
-            bookShelves[index] = bookShelve;
+            bookShelves.set(index,bookShelve);
 
         }
 
@@ -53,18 +49,15 @@ public class BookStand implements java.io.Serializable{
     public BookShelve getBookShelves(int index) {
 
 
-        if(index<getSize()-1){
 
-            return bookShelves[index];
-        }
-        else
-        {
+        if(index>getSize()-1){
             resize(index);
-            if(bookShelves[index] == null) {
-                bookShelves[index] = new BookShelve();
-            }
-            return bookShelves[index];
+            addBookShalve(index, new BookShelve());
+        }else if( bookShelves.get(index)==null){
 
+            addBookShalve(index, new BookShelve());
         }
+
+            return bookShelves.get(index);
     }
 }

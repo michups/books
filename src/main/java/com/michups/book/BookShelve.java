@@ -1,65 +1,56 @@
 package com.michups.book;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by michups on 01.06.17.
  */
 public class BookShelve implements java.io.Serializable{
 
-    private Book[] books;
+    private List<Book> books;
 
     public BookShelve(int size) {
         if (size > 0) {
-            this.books = new Book[size];
+            this.books = new ArrayList<>(size);
         } else {
-            this.books = new Book[1];
+            this.books =new ArrayList<>();
         }
     }
     public BookShelve() {
-            this.books = new Book[1];
+        this.books =new ArrayList<>();
     }
 
 
     private void resize(int index) {
-        Book[] tempBooks = new Book[index+1];
-        for (int i = 0; i < tempBooks.length; i++) {
-            if(i>books.length-1){
-                //tempBooks[i] = new Book();
-            }else if(books[i] !=null){
-                tempBooks[i] = books[i];
+        for (int i = books.size(); i <= index; i++) {
+            books.add(null);
             }
-
-        }
-        books=tempBooks;
     }
 
     public void addBook(int index, Book book) {
         if(index<getSize()-1){
 
-            books[index] = book;
+            books.set(index, book);
         }
         else
         {
             resize(index);
-            books[index] = book;
+            books.set(index, book);
 
         }
     }
 
     public Book getBook(int index) {
 
-        if(index<getSize()-1){
-
-            return books[index];
-        }
-        else
-        {
-            resize(index);
-            return books[index];
-
+        if(index>getSize()-1){
+            return null;
+        }else{
+            return books.get(index);
         }
     }
     public int getSize() {
 
-        return books.length;
+        return books.size();
     }
 }

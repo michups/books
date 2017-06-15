@@ -144,6 +144,7 @@ public class MainBook {
                             for (int i = 0; i < library.getBookStand(indexBookStand).getBookShelves(j).getSize(); i++) {
                                 if (library.getBookStand(indexBookStand)!=null && library.getBookStand(indexBookStand).getBookShelves(j)!=null &&
                                         library.getBookStand(indexBookStand).getBookShelves(j).getBook(i) != null) {
+                                    System.out.println("-"+indexBookStand+"-"+j+"-"+i+"-");
                                     library.getBookStand(indexBookStand).getBookShelves(j).getBook(i).print();
                                 }
                             }
