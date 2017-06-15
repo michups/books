@@ -1,6 +1,7 @@
 package com.michups.book;
 
 import java.io.*;
+import java.util.TreeSet;
 
 /**
  * Created by michups on 02.06.17.
@@ -27,8 +28,8 @@ public class SavetoFile {
                 Cover cover = Cover.valueOf(reader.readLine());
 
                 int numberOfAuthors= Integer.parseInt(reader.readLine());
-                Author[] authors = new Author[numberOfAuthors];
-                for (int j = 0; j <authors.length ; j++) {
+                TreeSet<Author> authors = new TreeSet<>();
+                for (int j = 0; j <numberOfAuthors ; j++) {
 
                     String authorName = reader.readLine();
 
@@ -37,7 +38,7 @@ public class SavetoFile {
                     String authorNickname = reader.readLine();
 
 
-                    authors[j] = new Author(authorName, authorSurname, authorNickname);
+                    authors.add(new Author(authorName, authorSurname, authorNickname));
                 }
                 int year = Integer.parseInt(reader.readLine());
                 Book book;

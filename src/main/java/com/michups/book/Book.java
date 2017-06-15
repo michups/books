@@ -1,5 +1,8 @@
 package com.michups.book;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Created by michups on 01.06.17.
  */
@@ -7,7 +10,7 @@ public class Book implements java.io.Serializable{
 
     private String title;
 
-    private Author[] authors;
+    private TreeSet<Author> authors;
 
     private int yearOfPublish;
 
@@ -30,7 +33,7 @@ public class Book implements java.io.Serializable{
 
     }
 
-    public Book(String title, Author[] authors, int yearOfPublish, Cover cover) {
+    public Book(String title, TreeSet<Author> authors, int yearOfPublish, Cover cover) {
 
         this.cover = cover;
         this.title = title;
@@ -48,15 +51,23 @@ public class Book implements java.io.Serializable{
     }
 
     public Author getAuthor( int index) {
-        return authors[index];
+        int i=0;
+        for (Author a :  authors) {
+            if(i==index){
+                return a;
+            }
+            i++;
+        }
+        return null;
     }
     public int getNumberOfAuthors() {
-        return authors.length;
+        return authors.size();
     }
 
 
     public void setAuthor(int index, Author author) {
-        this.authors[index] = author;
+       Author tempAuthor = getAuthor(index);
+       tempAuthor = author;
     }
 
     public int getYearOfPublish() {

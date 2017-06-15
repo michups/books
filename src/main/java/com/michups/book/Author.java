@@ -1,11 +1,12 @@
 package com.michups.book;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * Created by michups on 02.06.17.
  */
-public class Author implements Serializable{
+public class Author implements Serializable, Comparable<Author>{
 
     private String name;
 
@@ -26,6 +27,25 @@ public class Author implements Serializable{
         this.nickName = nickName;
     }
 
+    @Override
+    public int compareTo( Author o2) {
+        if(this==o2){
+            return 0;
+        }
+        int nameCompare = this.getName().compareTo(this.getName());
+        int surnameCompare = this.getSurname().compareTo(this.getSurname());
+        int nicknameCompare = this.getNickName().compareTo(this.getNickName());
+        if(nameCompare!=0){
+            return nameCompare;
+        }
+        if (surnameCompare!=0){
+            return surnameCompare;
+        }
+        if(nicknameCompare!=0){
+            return nicknameCompare;
+        }
+        return 0;
+    }
 
     public String getName() {
         return name;

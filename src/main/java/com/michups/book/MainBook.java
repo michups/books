@@ -1,8 +1,7 @@
 package com.michups.book;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by michups on 01.06.17.
@@ -54,9 +53,9 @@ public class MainBook {
                     System.out.println("Give me number of authors");
                     int authorNumber = inputScanner.nextInt();
                     inputScanner.skip("\n");
-                    Author[] authors = new Author[authorNumber];
+                    TreeSet<Author>authors = new TreeSet<>();
 
-                    for (int i = 0; i < authors.length; i++) {
+                    for (int i = 0; i < authorNumber; i++) {
 
                         System.out.println("Give me book author name");
                         String authorName = inputScanner.nextLine();
@@ -66,7 +65,7 @@ public class MainBook {
                         String authorNickname = inputScanner.nextLine();
 
                         Author author = new Author(authorName,authorSurname,authorNickname);
-                        authors[i] = author;
+                        authors.add(author);
 
                     }
                     System.out.println("Give me book year");

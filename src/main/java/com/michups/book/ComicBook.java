@@ -1,5 +1,7 @@
 package com.michups.book;
 
+import java.util.TreeSet;
+
 /**
  * Created by michups on 02.06.17.
  */
@@ -12,7 +14,7 @@ public class ComicBook extends Book{
     private String publishingSeries;
 
 
-    public ComicBook(String title, Author[] authors, int year, int month,String pulishingSeries, Cover cover) {
+    public ComicBook(String title, TreeSet<Author> authors, int year, int month, String pulishingSeries, Cover cover) {
         super(title, authors, year, cover);
         String years =  Integer.toString(year%100);
         String months =  (month>=10)?Integer.toString(month%13) :"0"+Integer.toString(month) ;
@@ -20,7 +22,7 @@ public class ComicBook extends Book{
         this.publishingSeries = pulishingSeries;
     }
 
-    public ComicBook(String title, Author[] authors, int year, String dateOfRelease ,String pulishingSeries,Cover cover ) {
+    public ComicBook(String title, TreeSet<Author> authors, int year, String dateOfRelease ,String pulishingSeries,Cover cover ) {
         super(title, authors, year, cover);
         this.dateOfRelease =dateOfRelease;
         this.publishingSeries = pulishingSeries;
