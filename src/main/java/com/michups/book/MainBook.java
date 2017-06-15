@@ -22,6 +22,12 @@ public class MainBook {
 
         Scanner inputScanner = new Scanner(System.in);
         boolean run = true;
+
+        System.out.println();
+        System.out.println("Login:");
+        String login = inputScanner.nextLine();
+
+
         while (run) {
 
             System.out.println();
