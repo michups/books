@@ -31,9 +31,14 @@ public class MainBook {
         while (run) {
 
             System.out.println();
-            System.out.println("Give me command: add, show,show all, quit");
+            System.out.println("Give me command: add, show, show all, change user, quit");
             String command = inputScanner.nextLine();
             switch (command) {
+                case "change user": {
+                    System.out.println("Login:");
+                    login = inputScanner.nextLine();
+                    break;
+                }
                 case "add": {
 
                      System.out.println("Give me bookstand index");
