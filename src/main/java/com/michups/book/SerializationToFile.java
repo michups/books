@@ -1,33 +1,41 @@
 package com.michups.book;
 
 import java.io.*;
+import java.util.Map;
 
 /**
  * Created by michups on 02.06.17.
  */
 public class SerializationToFile {
 
-    public boolean loadFromFile(String path, Library outLibrary) {
+    public static  Map<User, Library>  loadFromFile(String path) {
         try (
                 FileInputStream fileIn = new FileInputStream(path);
                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            outLibrary = (Library) in.readObject();
-            return true;
+            System.out.println("Succesfull loaded last session");
+            return (Map) in.readObject();
         } catch (IOException i) {
             i.printStackTrace();
-            return false;
+            System.out.println("Not found previous session save");
+            return null;
         } catch (ClassNotFoundException c) {
-            c.printStackTrace();
-            return false;
+            //c.printStackTrace();
+            System.out.println("Loading error");
+            return null;
+        }
+        catch (ClassCastException c) {
+           // c.printStackTrace();
+            System.out.println("Save of last session is broken");
+            return null;
         }
 
     }
 
-    public boolean saveToFile(String path, Library inputLibrary) {
+    public static boolean saveToFile(String path, Map<User, Library> inputLibraryData) {
 
         try (FileOutputStream fos = new FileOutputStream(path);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(inputLibrary);
+            oos.writeObject(inputLibraryData);
             return true;
         } catch (IOException e) {
             e.printStackTrace();

@@ -20,9 +20,8 @@ public class MainBook {
 
         Library userLibrary;
 
-        SavetoFile savetoFile = new SavetoFile();
-        savetoFile.loadFromFile("textSave.lib", libData);
-
+//        SavetoFile.loadFromFile("textSave.lib", libData);
+        libData = SerializationToFile.loadFromFile("serializationSave.lib");
         Scanner inputScanner = new Scanner(System.in);
         boolean run = true;
 
@@ -180,7 +179,8 @@ public class MainBook {
                 }
                 case "quit": {
 
-                    savetoFile.saveToFile("textSave.lib", libData);
+                    SavetoFile.saveToFile("textSave.lib", libData);
+                    SerializationToFile.saveToFile("serializationSave.lib", libData);
                     run = false;
                     break;
 

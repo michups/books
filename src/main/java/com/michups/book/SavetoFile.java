@@ -11,7 +11,7 @@ import java.util.TreeSet;
  */
 public class SavetoFile {
 
-    public boolean loadFromFile(String path, Map<User, Library> libraryData) {
+    public static boolean loadFromFile(String path, Map<User, Library> libraryData) {
 
         try (
                 FileInputStream fileIn = new FileInputStream(path);
@@ -93,7 +93,7 @@ public class SavetoFile {
 
     }
 
-    public boolean saveToFile(String path, Map<User, Library> libraryData) {
+    public static boolean saveToFile(String path, Map<User, Library> libraryData) {
 
         try (FileOutputStream fos = new FileOutputStream(path);
              PrintWriter writer = new PrintWriter(fos)) {
