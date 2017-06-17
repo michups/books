@@ -28,13 +28,33 @@ public class Author implements Serializable, Comparable<Author>{
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+
+        if (name != null ? !name.equals(author.name) : author.name != null) return false;
+        if (surname != null ? !surname.equals(author.surname) : author.surname != null) return false;
+        return nickName != null ? nickName.equals(author.nickName) : author.nickName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (nickName != null ? nickName.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public int compareTo( Author o2) {
         if(this==o2){
             return 0;
         }
-        int nameCompare = this.getName().compareTo(this.getName());
-        int surnameCompare = this.getSurname().compareTo(this.getSurname());
-        int nicknameCompare = this.getNickName().compareTo(this.getNickName());
+        int nameCompare = this.getName().compareTo(o2.getName());
+        int surnameCompare = this.getSurname().compareTo(o2.getSurname());
+        int nicknameCompare = this.getNickName().compareTo(o2.getNickName());
         if(nameCompare!=0){
             return nameCompare;
         }

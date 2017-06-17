@@ -1,5 +1,6 @@
 package com.michups.book;
 
+import javax.jws.soap.SOAPBinding;
 import java.io.*;
 import java.util.*;
 
@@ -15,10 +16,12 @@ public class MainBook {
         //int LIBRARY_SIZE = 10;
 
 
-        Library library = new Library();
+        Map<User, Library> libData = new HashMap<>();
+
+        Library userLibrary;
 
         SavetoFile savetoFile = new SavetoFile();
-        savetoFile.loadFromFile("textSave.lib", library);
+        savetoFile.loadFromFile("textSave.lib", libData);
 
         Scanner inputScanner = new Scanner(System.in);
         boolean run = true;
@@ -26,7 +29,12 @@ public class MainBook {
         System.out.println();
         System.out.println("Login:");
         String login = inputScanner.nextLine();
+        System.out.println("password:");
+        String password = inputScanner.nextLine();
 
+        User user = new User(login, "", password);
+
+        userLibrary= findLibraryForUser(user, libData);
 
         while (run) {
 
@@ -35,8 +43,16 @@ public class MainBook {
             String command = inputScanner.nextLine();
             switch (command) {
                 case "change user": {
+
+                    System.out.println();
                     System.out.println("Login:");
                     login = inputScanner.nextLine();
+                    System.out.println("password:");
+                    password = inputScanner.nextLine();
+
+                    user = new User(login, "", password);
+
+                    userLibrary= findLibraryForUser(user, libData);
                     break;
                 }
                 case "add": {
@@ -76,7 +92,7 @@ public class MainBook {
                         String authorNickname = inputScanner.nextLine();
 
                         Author author = new Author(authorName,authorSurname,authorNickname);
-                        authors.add(author);
+                        System.out.println(authors.add(author));
 
                     }
                     System.out.println("Give me book year");
@@ -117,7 +133,7 @@ public class MainBook {
                     }
 
 
-                    BookShelve tempBookShalve =  library.getBookStand(indexBookStand).getBookShelves(indexBookShalve);
+                    BookShelve tempBookShalve =  userLibrary.getBookStand(indexBookStand).getBookShelves(indexBookShalve);
                     tempBookShalve.addBook(indexBook, book);
 
                     break;
@@ -133,9 +149,9 @@ public class MainBook {
                     int indexBook = inputScanner.nextInt();
                     inputScanner.skip("\n");
 
-                    if (library.getBookStand(indexBookStand)!=null &&library.getBookStand(indexBookStand).getBookShelves(indexBookShalve)!=null &&
-                            library.getBookStand(indexBookStand).getBookShelves(indexBookShalve).getBook(indexBook) != null) {
-                        library.getBookStand(indexBookStand).getBookShelves(indexBookShalve).getBook(indexBook).print();
+                    if (userLibrary.getBookStand(indexBookStand)!=null &&userLibrary.getBookStand(indexBookStand).getBookShelves(indexBookShalve)!=null &&
+                            userLibrary.getBookStand(indexBookStand).getBookShelves(indexBookShalve).getBook(indexBook) != null) {
+                        userLibrary.getBookStand(indexBookStand).getBookShelves(indexBookShalve).getBook(indexBook).print();
                     }
                     else
                     {
@@ -146,16 +162,16 @@ public class MainBook {
                 case "show all": {
 //                    System.out.println(Arrays.deepToString(bookShelves));
 //                    System.out.println("AAAAAAAAAAAA");
-                    for (int indexBookStand = 0; indexBookStand <library.getSize(); indexBookStand++) {
+                    for (int indexBookStand = 0; indexBookStand <userLibrary.getSize(); indexBookStand++) {
 
-                        if(library.getBookStand(indexBookStand)!=null)
-                        for (int j = 0; j < library.getBookStand(indexBookStand).getSize(); j++) {
-                            if(library.getBookStand(indexBookStand).getBookShelves(j)!=null)
-                            for (int i = 0; i < library.getBookStand(indexBookStand).getBookShelves(j).getSize(); i++) {
-                                if (library.getBookStand(indexBookStand)!=null && library.getBookStand(indexBookStand).getBookShelves(j)!=null &&
-                                        library.getBookStand(indexBookStand).getBookShelves(j).getBook(i) != null) {
+                        if(userLibrary.getBookStand(indexBookStand)!=null)
+                        for (int j = 0; j < userLibrary.getBookStand(indexBookStand).getSize(); j++) {
+                            if(userLibrary.getBookStand(indexBookStand).getBookShelves(j)!=null)
+                            for (int i = 0; i < userLibrary.getBookStand(indexBookStand).getBookShelves(j).getSize(); i++) {
+                                if (userLibrary.getBookStand(indexBookStand)!=null && userLibrary.getBookStand(indexBookStand).getBookShelves(j)!=null &&
+                                        userLibrary.getBookStand(indexBookStand).getBookShelves(j).getBook(i) != null) {
                                     System.out.println("-"+indexBookStand+"-"+j+"-"+i+"-");
-                                    library.getBookStand(indexBookStand).getBookShelves(j).getBook(i).print();
+                                    userLibrary.getBookStand(indexBookStand).getBookShelves(j).getBook(i).print();
                                 }
                             }
                         }
@@ -164,7 +180,7 @@ public class MainBook {
                 }
                 case "quit": {
 
-                    savetoFile.saveToFile("textSave.lib", library);
+                    savetoFile.saveToFile("textSave.lib", libData);
                     run = false;
                     break;
 
@@ -196,6 +212,16 @@ public class MainBook {
 
             }
         }
+    }
+    public static Library  findLibraryForUser(User user, Map<User, Library> libData ){
+        for (User key : libData.keySet()) {
+            if (key.equals(user)) {
+                return libData.get(user);
+            }
+        }
+            libData.put(user, new Library());
+            return libData.get(user);
+
     }
 
 
